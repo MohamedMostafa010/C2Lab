@@ -115,6 +115,8 @@
 
   <img src="assets/Reverse_Shell_Gained.png" width="500" alt="Reverse Shell Gained" />
 
+- There are many other ways for gaining a persistent **reverse shell** not just **systemd, but also you can add cron jobs, kernel implants, or SSH backdoors.**
+
 6️⃣ **Traffic Capture & Analysis**
 
 - Captured network traffic using tcpdump/Wireshark **(botnet-vm-0 Private IP Address: 10.2.1.5, botnet-vm-1 Private IP Address: 10.2.1.4, C2 Machine Public IP Address: 13.91.62.40)**:
@@ -144,6 +146,12 @@
 4. **Behavior-Based Rules (SIEM/IDS)**
    - Write a YARA rule for detecting Sliver implants
    - Use Suricata/Snort for C2 traffic anomaly detection
+
+## 🔥 Enhancements & Additions Can be Added Later
+
+- Explore **DGA (Domain Generation Algorithms)** to dynamically generate C2 domains.
+- Demonstrate DNS tunneling (**like dnscat2for**) C2 instead of using direct IPs.
+- Implement **HTTP/S-based C2 using custom headers** (e.g., mimicking legit traffic).
 
 ## 📜 Disclaimer
 - This project is for educational and research purposes only. Any unauthorized use in real-world environments is strictly prohibited.
