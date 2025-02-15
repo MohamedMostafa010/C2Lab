@@ -45,6 +45,7 @@
 - Created a phishing-style HTML page to simulate a real website.
 - **Website Purpose:** The fake website mimics a Software Download Center, designed to appear legitimate while serving a malicious payload.
 - The malicious file **(test_file.tar)**, a compressed archive containing the Sliver implant. The attacker packs the file into a .tar archive to maintain file permissions, ensuring that execution privileges remain intact when extracted by the victim.
+  
    <img src="assets/Test_File.png" width="500" alt="Our Archived Malicious File" />
 - Hosted it on the C2 server
 - Transferred the HTML file to **/var/www/html/index.html** on the C2 machine.
