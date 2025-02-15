@@ -109,3 +109,34 @@
 - After a few seconds, the bot will establish a reverse shell connection as a root user due to the persistent systemd service. This ensures that as long as the bot remains online, the attacker can repeatedly regain access whenever they listen on port 7777.
 
   <img src="assets/Reverse_Shell_Gained.png" width="500" alt="Reverse Shell Gained" />
+
+6️⃣ **Traffic Capture & Analysis**
+
+- Captured network traffic using tcpdump/Wireshark **(botnet-vm-0 Private IP Address: 10.2.1.5, botnet-vm-1 Private IP Address: 10.2.1.4, C2 Machine Public IP Address: 13.91.62.40)**:
+  - Bot ➝ C2 (mTLS encrypted session): The bot-vm-0 (with private IP address of 10.2.1.5) downloads test_file.tar using an HTTP GET request. Screenshot from **capture_when_downloading_the_malicious_file.pcap**, apply **http.request.method == "GET"** to get intended packets more faster.
+
+    <img src="assets/VM0_Downloading_the_Malicious_File.png" width="700" alt="VM0 Downloading the Malicious File" />
+  - Bot ➝ C2: Executing the Malware (test_file). Screenshot from **capture_when_executing_the_malicious_file.pcap**, apply **ip.dst == 13.91.62.40** to get intended packets more faster.
+    <img src="assets/VM0_Executing_the_Malicious_File.png" width="700" alt="VM0 Executing the Malicious File" />
+  - Bot ⟷ C2: After execution, encrypted communication occurs between the bot and C2, where commands and responses are exchanged. Check **capture_from_C2_to_botnet.pcap**
+  - Bot ➝ C2 (Persistence): A reverse shell connection is established to port 7777. Screenshot from **persistence_shell_on_port_7777.pcap**, apply **tcp.port == 7777** to get intended packets more faster.
+    <img src="assets/VM0_Establishing_the_Reverse_Shell.png" width="700" alt="VM0 Establishing the Reverse Shell Back to the C2 Machine on Port 7777" />
+- Since all traffic is encrypted, detection techniques were explored
+
+## 🔍 Detection Techniques
+
+- Even though C2 traffic is encrypted (mTLS), potential detection methods include:
+1. **Traffic Pattern Analysis**
+    - Monitor unusual outbound connections from private IPs to an unknown public IP
+    - Look for long-lived TLS connections
+2. **Process Monitoring**
+    - Detect execution of unknown binaries
+    - Monitor systemd services for persistence
+3. **DNS Analysis**
+   - Identify suspicious domain resolution requests from bots
+4. **Behavior-Based Rules (SIEM/IDS)**
+   - Write a YARA rule for detecting Sliver implants
+   - Use Suricata/Snort for C2 traffic anomaly detection
+
+## 📜 Disclaimer
+- This project is for educational and research purposes only. Any unauthorized use in real-world environments is strictly prohibited.
