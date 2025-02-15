@@ -22,7 +22,6 @@
 - Used Terraform to deploy (as in the below picture, also Terraform scripts are included in that repo):
   - C2 Machine
   - Botnet Machines (2 bots)
-    
   <img src="assets/Deployed_C2_and_Botnet.png" width="400" alt="Deployed Machines from Azure Dashboard" />
 
 2️⃣ **Setting Up the C2 Server**
