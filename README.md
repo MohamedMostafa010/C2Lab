@@ -22,6 +22,7 @@
 - Used Terraform to deploy (as in the below picture, also Terraform scripts are included in that repo):
   - C2 Machine
   - Botnet Machines (2 bots)
+    
   <img src="assets/Deployed_C2_and_Botnet.png" width="400" alt="Deployed Machines from Azure Dashboard" />
 
 2️⃣ **Setting Up the C2 Server**
@@ -73,10 +74,11 @@
   ./test_file
   ```
 - This action initiates the C2 connection, allowing the attacker to gain control over the compromised system.
-  <img src="assets/Executing_Malware_on_both.png" width="500" alt="Execution of our Malicious test_file Sample" />
-  <img src="assets/Bot_0_Connected.png" width="500" alt="Bot 0 Executed our Malicious File, then Connected Back" />
-  <img src="assets/Bot_1_Connected.png" width="500" alt="Bot 1 Executed our Malicious File, then Connected Back" />
-  <img src="assets/Sessions.png" width="500" alt="Sessions Sample" />
+  
+  <img src="assets/Executing_Malware_on_both.png" width="560" alt="Execution of our Malicious test_file Sample" />
+  <img src="assets/Bot_0_Connected.png" width="560" alt="Bot 0 Executed our Malicious File, then Connected Back" />
+  <img src="assets/Bot_1_Connected.png" width="560" alt="Bot 1 Executed our Malicious File, then Connected Back" />
+  <img src="assets/Sessions.png" width="560" alt="Sessions Sample" />
 
 5️⃣ **Persistence Setup**
 - Created a **systemd service (persistence.service)** for a persistent **reverse shell**
@@ -105,7 +107,7 @@
   sudo systemctl enable persistence
   sudo systemctl start persistence
   ```
-  <img src="assets/Enabling_Persistance_on_Botnet.png" width="500" alt="Asking for a Shell and Making Our Malicious Systemd Service" />
+  <img src="assets/Enabling_Persistance_on_Botnet.png" width="560" alt="Asking for a Shell and Making Our Malicious Systemd Service" />
 - Each time the attacker's machine runs:
   ```sh
   nc -l [Desired Listening Port]
@@ -119,12 +121,13 @@
 - Captured network traffic using tcpdump/Wireshark **(botnet-vm-0 Private IP Address: 10.2.1.5, botnet-vm-1 Private IP Address: 10.2.1.4, C2 Machine Public IP Address: 13.91.62.40)**:
   - Bot ➝ C2 (mTLS encrypted session): The bot-vm-0 (with private IP address of 10.2.1.5) downloads test_file.tar using an HTTP GET request. Screenshot from **capture_when_downloading_the_malicious_file.pcap**, apply **http.request.method == "GET"** to get intended packets more faster.
 
-    <img src="assets/VM0_Downloading_the_Malicious_File.png" width="700" alt="VM0 Downloading the Malicious File" />
+    <img src="assets/VM0_Downloading_the_Malicious_File.png" width="900" alt="VM0 Downloading the Malicious File" />
   - Bot ➝ C2: Executing the Malware (test_file). Screenshot from **capture_when_executing_the_malicious_file.pcap**, apply **ip.dst == 13.91.62.40** to get intended packets more faster.
     
     <img src="assets/VM0_Executing_the_Malicious_File.png" width="700" alt="VM0 Executing the Malicious File" />
   - Bot ⟷ C2: After execution, encrypted communication occurs between the bot and C2, where commands and responses are exchanged. Check **capture_from_C2_to_botnet.pcap**
   - Bot ➝ C2 (Persistence): A reverse shell connection is established to port 7777. Screenshot from **persistence_shell_on_port_7777.pcap**, apply **tcp.port == 7777** to get intended packets more faster.
+
     <img src="assets/VM0_Establishing_the_Reverse_Shell.png" width="700" alt="VM0 Establishing the Reverse Shell Back to the C2 Machine on Port 7777" />
 - **Note:** Since all traffic is encrypted, detection techniques were explored. One key observation is that **Wireshark's "Resolve Network Addresses" option** was disabled by me, meaning IPs are not automatically translated into their associated domain names. However, enabling this option **(View > Name Resolution > Check Resolve Network Addresses)** reveals that our C2 server resolves to **softwaredownloadcenter.westus.cloudapp.azure.com.** This domain name, while appearing legitimate, could still raise suspicion upon closer inspection—especially in an environment where C2 traffic is actively monitored.
 
