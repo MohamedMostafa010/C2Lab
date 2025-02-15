@@ -118,6 +118,7 @@
 
     <img src="assets/VM0_Downloading_the_Malicious_File.png" width="700" alt="VM0 Downloading the Malicious File" />
   - Bot ➝ C2: Executing the Malware (test_file). Screenshot from **capture_when_executing_the_malicious_file.pcap**, apply **ip.dst == 13.91.62.40** to get intended packets more faster.
+    
     <img src="assets/VM0_Executing_the_Malicious_File.png" width="700" alt="VM0 Executing the Malicious File" />
   - Bot ⟷ C2: After execution, encrypted communication occurs between the bot and C2, where commands and responses are exchanged. Check **capture_from_C2_to_botnet.pcap**
   - Bot ➝ C2 (Persistence): A reverse shell connection is established to port 7777. Screenshot from **persistence_shell_on_port_7777.pcap**, apply **tcp.port == 7777** to get intended packets more faster.
