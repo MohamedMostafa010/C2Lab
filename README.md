@@ -107,4 +107,4 @@
   nc -l [Desired Listening Port]
   ```
 - After a few seconds, the bot will establish a reverse shell connection as a root user due to the persistent systemd service. This ensures that as long as the bot remains online, the attacker can repeatedly regain access whenever they listen on port 7777.
-  <img src="assets/Reverse_Shell_Gained.png" width="500" alt="Reverse Shell Gained" />
+  <img src="assets/Reverse_Shell_Gained.png" width="400" alt="Reverse Shell Gained" />
