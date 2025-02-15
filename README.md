@@ -4,7 +4,7 @@
 
 ## 🚀 Project Overview
 
-- This lab demonstrates how to set up a **C2 infrastructure using Sliver****, deploy bots, establish communication over mTLS, and implement persistence** while capturing network **traffic for analysis.**
+- This lab demonstrates how to set up a **C2 infrastructure using Sliver, deploy bots, establish communication over mTLS, and implement persistence** while capturing network **traffic for analysis.**
 <img src="assets/sliver_framework.jpg" width="400" alt="Sliver C2 Framework Logo" />
 
 ## 🛠 Features
