@@ -122,14 +122,14 @@
 - Captured network traffic using tcpdump/Wireshark **(botnet-vm-0 Private IP Address: 10.2.1.5, botnet-vm-1 Private IP Address: 10.2.1.4, C2 Machine Public IP Address: 13.91.62.40)**:
   - Bot ➝ C2 (mTLS encrypted session): The bot-vm-0 (with private IP address of 10.2.1.5) downloads test_file.tar using an HTTP GET request. Screenshot from **capture_when_downloading_the_malicious_file.pcap**, apply **http.request.method == "GET"** to get intended packets more faster.
 
-    <img src="assets/VM0_Downloading_the_Malicious_File.png" width="900" alt="VM0 Downloading the Malicious File" />
+    <img src="assets/VM0_Downloading_the_Malicious_File.png" width="1250" alt="VM0 Downloading the Malicious File" />
   - Bot ➝ C2: Executing the Malware (test_file). Screenshot from **capture_when_executing_the_malicious_file.pcap**, apply **ip.dst == 13.91.62.40** to get intended packets more faster.
     
-    <img src="assets/VM0_Executing_the_Malicious_File.png" width="700" alt="VM0 Executing the Malicious File" />
+    <img src="assets/VM0_Executing_the_Malicious_File.png" width="750" alt="VM0 Executing the Malicious File" />
   - Bot ⟷ C2: After execution, encrypted communication occurs between the bot and C2, where commands and responses are exchanged. Check **capture_from_C2_to_botnet.pcap**
   - Bot ➝ C2 (Persistence): A reverse shell connection is established to port 7777. Screenshot from **persistence_shell_on_port_7777.pcap**, apply **tcp.port == 7777** to get intended packets more faster.
 
-    <img src="assets/VM0_Establishing_the_Reverse_Shell.png" width="700" alt="VM0 Establishing the Reverse Shell Back to the C2 Machine on Port 7777" />
+    <img src="assets/VM0_Establishing_the_Reverse_Shell.png" width="1150" alt="VM0 Establishing the Reverse Shell Back to the C2 Machine on Port 7777" />
 - **Note:** Since all traffic is encrypted, detection techniques were explored. One key observation is that **Wireshark's "Resolve Network Addresses" option** was disabled by me, meaning IPs are not automatically translated into their associated domain names. However, enabling this option **(View > Name Resolution > Check Resolve Network Addresses)** reveals that our C2 server resolves to **softwaredownloadcenter.westus.cloudapp.azure.com.** This domain name, while appearing legitimate, could still raise suspicion upon closer inspection—especially in an environment where C2 traffic is actively monitored.
 
 ## 🔍 Detection Techniques
